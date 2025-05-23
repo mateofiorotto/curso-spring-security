@@ -1,0 +1,7 @@
+Varios usuarios (n) puede tener uno o mas roles (n) - N:N
+
+Varios permisos (n) pueden estar en varios roles a la vez (N) - N:N
+
+Usuario (N) <--> (N) Rol (N) <--> (N) Permiso
+
+Usuario(s) tiene(n) rol(es) que le(s) otorga(n) cierto(s) permiso(s)
