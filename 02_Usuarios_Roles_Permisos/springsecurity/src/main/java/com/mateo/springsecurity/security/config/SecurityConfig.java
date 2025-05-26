@@ -1,7 +1,5 @@
 package com.mateo.springsecurity.security.config;
 
-import com.mateo.springsecurity.security.config.filter.JwtTokenValidator;
-import com.mateo.springsecurity.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,7 +19,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +30,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity //Permitimos la seguridad x metodos
 public class SecurityConfig {
 
-    //DI
-    private final JwtUtils jwtUtils;
-
-    public SecurityConfig(JwtUtils jwtUtils) {
-        this.jwtUtils = jwtUtils;
-    }
-
     /*
     * Cadena de filtros
     * */
@@ -48,8 +38,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) //Desactivamos csrf porque puede generar incompatibilidad
                 .httpBasic(Customizer.withDefaults()) //auth mediante httpbasic, con user y contra, con config customizada y x defecto
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //politicas tenidas en cuenta para crear sesiones, en este caso Stateless (tokens)
-                .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class);
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); //politicas tenidas en cuenta para crear sesiones, en este caso Stateless (tokens)
         return http.build();
 //                .authorizeHttpRequests(authorize -> authorize
 //                        .requestMatchers(HttpMethod.GET,"/hola").permitAll() // mediante GET al hola, permite a todos
