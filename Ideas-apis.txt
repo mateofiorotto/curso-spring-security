@@ -1,1 +1,0 @@
-Posible api: API camping con venta de carpas, binoculares, telescopios, herramientas de camping, etc.. con admins y usuarios finales
